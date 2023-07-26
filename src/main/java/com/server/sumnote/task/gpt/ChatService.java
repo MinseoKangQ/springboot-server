@@ -1,4 +1,4 @@
-package com.server.sumnote.gpt_test;
+package com.server.sumnote.task.gpt;
 
 import io.github.flashvayne.chatgpt.service.ChatgptService;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.server.sumnote.gpt_test;
+package com.server.sumnote.task.gpt;
 
 import io.github.flashvayne.chatgpt.service.ChatgptService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @RequestMapping("/gpt-test")
-public class testController {
+public class TestController {
     private final ChatService chatService;
     private final ChatgptService chatgptService;
 
