@@ -1,6 +1,5 @@
 package com.server.sumnote;
 
-import com.server.sumnote.model.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -24,9 +23,9 @@ public class SumNoteApplication {
 		System.out.println("Transaction start");
 
 		try {
-			System.out.println("here is try");
-			User user = new User(1, "1234");
-			em.persist(user);
+//			System.out.println("here is try");
+//			User user = new User(1, "1234");
+//			em.persist(user);
 			tx.commit();
 			System.out.println("try end!");
 		} catch (Exception e) {

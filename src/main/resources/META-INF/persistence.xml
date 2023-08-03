@@ -4,14 +4,14 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
     <!--  EntityManagerFactory 생성 시 사용되는 persistence name -->
     <persistence-unit name="sum-note">
-        <class>com.server.sumnote.model.User</class>
+        <class>com.server.sumnote.user.entity.User</class>
         <properties>
             <!-- 필수 속성 -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="1234"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sum_note"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
 
             <!-- 콘솔에 SQL 출력 여부 -->
             <property name="hibernate.show_sql" value="true"/>
