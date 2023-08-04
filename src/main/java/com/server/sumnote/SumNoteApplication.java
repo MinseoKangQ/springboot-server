@@ -1,5 +1,7 @@
 package com.server.sumnote;
 
+import com.server.sumnote.summary.entity.Summary;
+import com.server.sumnote.user.entity.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 @SpringBootApplication
 public class SumNoteApplication {
@@ -23,9 +26,7 @@ public class SumNoteApplication {
 		System.out.println("Transaction start");
 
 		try {
-//			System.out.println("here is try");
-//			User user = new User(1, "1234");
-//			em.persist(user);
+
 			tx.commit();
 			System.out.println("try end!");
 		} catch (Exception e) {

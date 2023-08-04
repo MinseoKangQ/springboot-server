@@ -1,6 +1,6 @@
 package com.server.sumnote.quiz.controller;
 
-import com.server.sumnote.quiz.service.ChatService;
+import com.server.sumnote.quiz.service.ChatServiceImpl;
 import io.github.flashvayne.chatgpt.service.ChatgptService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/make-quiz")
 @Component("quizController")
 public class Controller {
-    private final ChatService chatService;
+    private final ChatServiceImpl chatServiceImpl;
     private final ChatgptService chatgptService;
 
     //chat-gpt 와 간단한 채팅 서비스 소스
     @PostMapping("")
-    public String test(@RequestBody String question) {
-        return chatService.getChatResponse(question);
+    public String makeQuiz(@RequestBody String question) {
+        return chatServiceImpl.getChatResponse(question);
     }
 
 }

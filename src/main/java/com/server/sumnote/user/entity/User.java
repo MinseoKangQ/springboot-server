@@ -25,12 +25,25 @@ public class User {
     public User() {
     }
 
+    public User(Long id, String token, String username, String password) {
+        this.id = id;
+        this.token = token;
+        this.username = username;
+        this.password = password;
+    }
+
     public User(Long id, String token, String username, String password, List<Summary> summaryList) {
         this.id = id;
         this.token = token;
         this.username = username;
         this.password = password;
         this.summaryList = summaryList;
+    }
+
+    public User(String token, String username, String password) {
+        this.token = token;
+        this.username = username;
+        this.password = password;
     }
 
     public Long getId() {
