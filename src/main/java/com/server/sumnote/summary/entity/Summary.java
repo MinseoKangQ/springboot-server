@@ -2,8 +2,16 @@ package com.server.sumnote.summary.entity;
 
 import com.server.sumnote.quiz.entity.Quiz;
 import com.server.sumnote.user.entity.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import javax.persistence.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "SUMMARY")
 public class Summary {
@@ -27,9 +35,6 @@ public class Summary {
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;
 
-    public Summary() {
-    }
-
     public Summary(Long id, String title, String content, User user_sum) {
         this.id = id;
         this.title = title;
@@ -37,11 +42,4 @@ public class Summary {
         this.user_sum = user_sum;
     }
 
-    public Summary(Long id, String title, String content, User user_sum, Quiz quiz) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.user_sum = user_sum;
-        this.quiz = quiz;
-    }
 }

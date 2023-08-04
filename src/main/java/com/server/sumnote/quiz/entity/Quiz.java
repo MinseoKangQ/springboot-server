@@ -2,9 +2,14 @@ package com.server.sumnote.quiz.entity;
 
 import com.server.sumnote.summary.entity.Summary;
 import com.server.sumnote.user.entity.User;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "QUIZ")
 public class Quiz {
@@ -28,19 +33,6 @@ public class Quiz {
 
     @OneToOne(mappedBy = "quiz")
     private Summary summary;
-
-    public Quiz() {
-    }
-
-    public Quiz(Long id, String title, String answer, String content, String commentary, User user_quiz, Summary summary) {
-        this.id = id;
-        this.title = title;
-        this.answer = answer;
-        this.content = content;
-        this.commentary = commentary;
-        this.user_quiz = user_quiz;
-        this.summary = summary;
-    }
 
     public Long getId() {
         return id;

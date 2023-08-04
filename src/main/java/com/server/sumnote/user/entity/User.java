@@ -1,10 +1,19 @@
 package com.server.sumnote.user.entity;
 
 import com.server.sumnote.summary.entity.Summary;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "USER")
 public class User {
@@ -22,22 +31,11 @@ public class User {
     @OneToMany(mappedBy = "user_sum")
     private List<Summary> summaryList = new ArrayList<>();
 
-    public User() {
-    }
-
     public User(Long id, String token, String username, String password) {
         this.id = id;
         this.token = token;
         this.username = username;
         this.password = password;
-    }
-
-    public User(Long id, String token, String username, String password, List<Summary> summaryList) {
-        this.id = id;
-        this.token = token;
-        this.username = username;
-        this.password = password;
-        this.summaryList = summaryList;
     }
 
     public User(String token, String username, String password) {
