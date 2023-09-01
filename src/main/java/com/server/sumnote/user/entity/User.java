@@ -1,14 +1,10 @@
 package com.server.sumnote.user.entity;
 
-import com.server.sumnote.summary.entity.Summary;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -19,68 +15,26 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long id;
+    @Column(name = "email")
+    private String email;
 
-    private String token;
+    private String name;
 
-    private String username;
-    private String password;
-
-    @OneToMany(mappedBy = "user_sum")
-    private List<Summary> summaryList = new ArrayList<>();
-
-    public User(Long id, String token, String username, String password) {
-        this.id = id;
-        this.token = token;
-        this.username = username;
-        this.password = password;
+    @Override
+    public String toString() {
+        return "User{" +
+                "email=" + email +
+                ", name='" + name + '\'' +
+                '}';
     }
 
-    public User(String token, String username, String password) {
-        this.token = token;
-        this.username = username;
-        this.password = password;
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<Summary> getSummaryList() {
-        return summaryList;
-    }
-
-    public void setSummaryList(List<Summary> summaryList) {
-        this.summaryList = summaryList;
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }
