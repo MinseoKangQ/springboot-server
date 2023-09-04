@@ -1,9 +1,7 @@
 package com.server.sumnote.summary.controller;
 
 import com.server.sumnote.quiz.entity.Quiz;
-import com.server.sumnote.summary.service.ChatServiceImpl;
 import com.server.sumnote.user.entity.User;
-import io.github.flashvayne.chatgpt.service.ChatgptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -19,15 +17,6 @@ import java.util.List;
 @Component("summaryController")
 @Api(tags = {"Summary API"})
 public class Controller {
-
-    private final ChatServiceImpl chatServiceImpl;
-    private final ChatgptService chatgptService;
-
-    @PostMapping("/sum-note")
-    @ApiOperation(value = "chat-gpt 와 연동하여 요약본 생성")
-    public String makeSumNote(@RequestBody String question) {
-        return chatServiceImpl.getChatResponse(question);
-    }
 
     @GetMapping("/sum-notes")
     @ApiOperation(value = "유저의 모든 요약 노트 보여주기")

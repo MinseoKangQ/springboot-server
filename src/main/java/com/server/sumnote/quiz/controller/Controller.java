@@ -1,9 +1,7 @@
 package com.server.sumnote.quiz.controller;
 
 import com.server.sumnote.quiz.entity.Quiz;
-import com.server.sumnote.quiz.service.ChatServiceImpl;
 import com.server.sumnote.user.entity.User;
-import io.github.flashvayne.chatgpt.service.ChatgptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -22,15 +20,6 @@ import java.util.List;
 @Component("quizController")
 @Api(tags = {"Quiz API"})
 public class Controller {
-
-    private final ChatServiceImpl chatServiceImpl;
-    private final ChatgptService chatgptService;
-
-    @PostMapping("/make-quiz")
-    @ApiOperation(value = "chat-gpt 와 연동하여 문제&답변 생성")
-    public String makeQuiz(@RequestBody String question) {
-        return chatServiceImpl.getChatResponse(question);
-    }
 
     @GetMapping("/quizzes")
     @ApiOperation(value = "유저의 모든 퀴즈 문서 보여주기")
