@@ -27,19 +27,8 @@ public class Summary {
     private String content;
 
     // FK -> 주인
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user_sum;
-
-    @OneToOne
-    @JoinColumn(name = "quiz_id")
-    private Quiz quiz;
-
-    public Summary(Long id, String title, String content, User user_sum) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.user_sum = user_sum;
-    }
+    private User user;
 
 }

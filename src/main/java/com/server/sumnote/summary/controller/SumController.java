@@ -1,22 +1,39 @@
 package com.server.sumnote.summary.controller;
 
 import com.server.sumnote.quiz.entity.Quiz;
+import com.server.sumnote.summary.dto.CreateSumNoteRequest;
+import com.server.sumnote.summary.entity.Summary;
 import com.server.sumnote.user.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@RestController
-@RequestMapping
+@Controller
 @RequiredArgsConstructor
 @Component("summaryController")
 @Api(tags = {"Summary API"})
-public class Controller {
+public class SumController {
+
+    @ResponseBody // 이 메소드가 응답을 직접 처리하도록 알림
+    @PostMapping("/create-sum-note")
+    @ApiOperation(value = "요약 노트 만들기")
+    public CreateSumNoteRequest createSumNote(@RequestBody CreateSumNoteRequest createSumNoteRequest) {
+
+        // Summary 의 user 에 user_id를 FK로 지정, Summary 객체를 저장
+        System.out.println("user email : " + createSumNoteRequest.getUser().getEmail());
+        System.out.println("summary title : " + createSumNoteRequest.getSummary().getTitle());
+        System.out.println("summary content : " + createSumNoteRequest.getSummary().getContent());
+
+        // 영속성 컨텍스트에 저장
+
+        return createSumNoteRequest;
+    }
 
     @GetMapping("/sum-notes")
     @ApiOperation(value = "유저의 모든 요약 노트 보여주기")

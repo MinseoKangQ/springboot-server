@@ -1,10 +1,13 @@
 package com.server.sumnote.user.entity;
 
+import com.server.sumnote.summary.entity.Summary;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,6 +22,9 @@ public class User {
     private String email;
 
     private String name;
+
+    @OneToMany(mappedBy = "user")
+    private List<Summary> summaries = new ArrayList<>();
 
     @Override
     public String toString() {

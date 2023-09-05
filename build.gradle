@@ -26,15 +26,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
-
 	// Swagger 관련 의존성 추가
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
-//	implementation 'io.springfox:springfox-swagger2:3.0.0'
-//	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
-
-	// GPT API 를 사용하기 위한 라이브러리
-	implementation 'io.github.flashvayne:chatgpt-spring-boot-starter:1.0.4'
 
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
