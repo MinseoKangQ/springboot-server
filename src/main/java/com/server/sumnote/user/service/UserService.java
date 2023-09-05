@@ -2,20 +2,16 @@ package com.server.sumnote.user.service;
 
 import com.server.sumnote.user.entity.User;
 import com.server.sumnote.user.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
-
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     public User checkAndCreateUser(String email, String name) {
 

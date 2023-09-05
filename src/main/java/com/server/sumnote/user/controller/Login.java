@@ -2,19 +2,23 @@ package com.server.sumnote.user.controller;
 
 import com.server.sumnote.user.entity.User;
 import com.server.sumnote.user.service.UserService;
+import io.swagger.annotations.Api;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+@Slf4j
 @Controller
+@RequiredArgsConstructor
+@Component("loginController")
+@Api(tags = {"Login API"})
 public class Login {
 
     private final UserService userService;
-
-    public Login(UserService userService) {
-        this.userService = userService;
-    }
 
     @PostMapping(value="android")
     @ResponseBody

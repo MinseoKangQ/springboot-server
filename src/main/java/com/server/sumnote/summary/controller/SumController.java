@@ -3,6 +3,7 @@ package com.server.sumnote.summary.controller;
 import com.server.sumnote.quiz.entity.Quiz;
 import com.server.sumnote.summary.dto.CreateSumNoteRequest;
 import com.server.sumnote.summary.entity.Summary;
+import com.server.sumnote.summary.service.SummaryService;
 import com.server.sumnote.user.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,6 +21,8 @@ import java.util.List;
 @Api(tags = {"Summary API"})
 public class SumController {
 
+    private final SummaryService summaryService;
+
     @ResponseBody // 이 메소드가 응답을 직접 처리하도록 알림
     @PostMapping("/create-sum-note")
     @ApiOperation(value = "요약 노트 만들기")
@@ -30,7 +33,13 @@ public class SumController {
         System.out.println("summary title : " + createSumNoteRequest.getSummary().getTitle());
         System.out.println("summary content : " + createSumNoteRequest.getSummary().getContent());
 
+        String isSuccess = summaryService.createSumNote(
+                createSumNoteRequest.getSummary().getTitle(),
+                createSumNoteRequest.getSummary().getTitle(),
+                createSumNoteRequest.getUser());
         // 영속성 컨텍스트에 저장
+
+        System.out.println(isSuccess);
 
         return createSumNoteRequest;
     }
