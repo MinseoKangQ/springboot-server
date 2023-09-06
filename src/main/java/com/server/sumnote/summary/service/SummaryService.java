@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 @RequiredArgsConstructor
 public class SummaryService {
@@ -15,13 +17,25 @@ public class SummaryService {
     private final SummaryRepository summaryRepository;
     private final UserRepository userRepository;
 
-    public String createSumNote(String title, String content, User user) {
+    public Summary createSumNote(String title, String content, User user) {
         Summary newSumNote = new Summary();
         newSumNote.setTitle(title);
         newSumNote.setContent(content);
         newSumNote.setUser(user);
         userRepository.save(user);
         summaryRepository.save(newSumNote);
-        return "success";
+        return newSumNote;
+    }
+
+    public Summary getSumNote(Long id) {
+        return summaryRepository.findSummaryById(id);
+    }
+
+    public ArrayList<Summary> getAllSumNotes(String email) {
+        return summaryRepository.findSummariesByUser(userRepository.findByEmail(email));
+    }
+
+    public void deleteNote(Long id) {
+        summaryRepository.deleteById(id);
     }
 }

@@ -1,12 +1,11 @@
 package com.server.sumnote.summary.entity;
 
-import com.server.sumnote.quiz.entity.Quiz;
 import com.server.sumnote.user.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.server.sumnote.util.BaseTimeEntity;
+import lombok.*;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "SUMMARY")
-public class Summary {
+public class Summary extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +30,8 @@ public class Summary {
     @JoinColumn(name = "user_id")
     private User user;
 
+    // 수동추가
+    public LocalDateTime getCreatedAt() {
+        return this.getCreated_at();
+    }
 }

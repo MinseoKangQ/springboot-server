@@ -1,7 +1,9 @@
 package com.server.sumnote.summary.controller;
 
 import com.server.sumnote.quiz.entity.Quiz;
-import com.server.sumnote.summary.dto.CreateSumNoteRequest;
+import com.server.sumnote.summary.dto.AllSumRes;
+import com.server.sumnote.summary.dto.SumReq;
+import com.server.sumnote.summary.dto.SumRes;
 import com.server.sumnote.summary.entity.Summary;
 import com.server.sumnote.summary.service.SummaryService;
 import com.server.sumnote.user.entity.User;
@@ -12,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -26,50 +29,56 @@ public class SumController {
     @ResponseBody // 이 메소드가 응답을 직접 처리하도록 알림
     @PostMapping("/create-sum-note")
     @ApiOperation(value = "요약 노트 만들기")
-    public CreateSumNoteRequest createSumNote(@RequestBody CreateSumNoteRequest createSumNoteRequest) {
+    public SumRes createSumNote(@RequestBody SumReq createSumRequest) {
 
-        // Summary 의 user 에 user_id를 FK로 지정, Summary 객체를 저장
-        System.out.println("user email : " + createSumNoteRequest.getUser().getEmail());
-        System.out.println("summary title : " + createSumNoteRequest.getSummary().getTitle());
-        System.out.println("summary content : " + createSumNoteRequest.getSummary().getContent());
+        Summary createdSummary = summaryService.createSumNote(
+                createSumRequest.getSummary().getTitle(),
+                createSumRequest.getSummary().getContent(),
+                createSumRequest.getUser());
 
-        String isSuccess = summaryService.createSumNote(
-                createSumNoteRequest.getSummary().getTitle(),
-                createSumNoteRequest.getSummary().getTitle(),
-                createSumNoteRequest.getUser());
-        // 영속성 컨텍스트에 저장
+        return new SumRes(createdSummary.getTitle(), createdSummary.getContent());
 
-        System.out.println(isSuccess);
-
-        return createSumNoteRequest;
     }
 
+
+    @ResponseBody // 이 메소드가 응답을 직접 처리하도록 알림
     @GetMapping("/sum-notes")
     @ApiOperation(value = "유저의 모든 요약 노트 보여주기")
-    public List<Quiz> getAllSumNotes(@RequestBody User user) {
+    public List<AllSumRes> getAllSumNotes(@RequestBody User user) {
 
         // 유저의 아이디에 해당하는 요약 문서들 가져오기
+        ArrayList<Summary> notes = summaryService.getAllSumNotes(user.getEmail());
 
-        // 일단 null
-        return null;
+        // Summary 객체를 AllSumRes 객체로 변환
+        List<AllSumRes> result = new ArrayList<>();
+        for (Summary note : notes) {
+            AllSumRes allSumRes = new AllSumRes(note.getTitle(), note.getCreatedAt());
+            result.add(allSumRes);
+        }
+
+        // 배열 형태로 보내기, [ {"title" : ~~ , "created_at" : ~~ }, ]
+        return result;
+
     }
 
     // 터치한 문서의 번호로 접근
-    @GetMapping("/sum-notes-detail")
+    @ResponseBody // 이 메소드가 응답을 직접 처리하도록 알림
+    @GetMapping("/sum-note-detail/{id}")
     @ApiOperation(value = "요약 노트 조회")
-    public Quiz getSumNote(@RequestBody Long id) {
+    public SumRes getSumNote(@PathVariable("id") Long id) {
 
-        // 문서 아이디에 해당하는 요약 문서 하나 가져오기
+        Summary gotSummary = summaryService.getSumNote(id);
+        return new SumRes(gotSummary.getTitle(), gotSummary.getContent());
 
-        // 일단 null
-        return null;
     }
 
     // 터치한 문서의 번호로 접근
-    @DeleteMapping("sum-notes")
+    @ResponseBody
+    @DeleteMapping("/sum-note/{id}")
     @ApiOperation(value = "요약 노트 삭제")
     public void deleteSumNote(@PathVariable Long id) {
 
+        summaryService.deleteNote(id);
         // 문서 아이디에 해당하는 요약 문서 하나 가져와서 삭제
 
     }
