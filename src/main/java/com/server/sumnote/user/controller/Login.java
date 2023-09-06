@@ -3,6 +3,7 @@ package com.server.sumnote.user.controller;
 import com.server.sumnote.user.entity.User;
 import com.server.sumnote.user.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -20,22 +21,18 @@ public class Login {
 
     private final UserService userService;
 
-    @PostMapping(value="android")
     @ResponseBody
+    @PostMapping(value="android")
+    @ApiOperation(value = "카카오 - 유저 생성")
     public String androidResponse(@RequestBody User user) {
 
         User usingUser = userService.checkAndCreateUser(user.getEmail(), user.getName());
-        System.out.println("Connection from Android");
-        System.out.println("=== 매개변수로 받은 User ===");
-        System.out.println("name: " + user.getName() + ", email: " + user.getEmail());
-        System.out.println("=== Repository 에 존재하는 User ===");
-        System.out.println("name: " + usingUser.getName() + ", email: " + usingUser.getEmail());
-
         return "success";
     }
 
-    @PostMapping(value="delete-request-android")
     @ResponseBody
+    @PostMapping(value="delete-request-android")
+    @ApiOperation(value = "카카오 - 유저 삭제")
     public String androidDeleteResponse(@RequestBody User user) {
         userService.deleteUser(user.getEmail());
         return "deleted";

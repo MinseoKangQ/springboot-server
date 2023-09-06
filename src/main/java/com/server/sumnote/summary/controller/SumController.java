@@ -52,7 +52,7 @@ public class SumController {
         // Summary 객체를 AllSumRes 객체로 변환
         List<AllSumRes> result = new ArrayList<>();
         for (Summary note : notes) {
-            AllSumRes allSumRes = new AllSumRes(note.getTitle(), note.getCreatedAt());
+            AllSumRes allSumRes = new AllSumRes(note.getTitle(), note.getCreated_at());
             result.add(allSumRes);
         }
 
@@ -72,14 +72,23 @@ public class SumController {
 
     }
 
+    // 여기 만들기
+    // 터치한 문서의 번호로 접근
+    @ResponseBody
+    @PutMapping("/sum-note/{id}")
+    @ApiOperation(value = "요약 노트 제목 수정")
+    public void updateSumNote(@PathVariable Long id) {
+
+    }
+
     // 터치한 문서의 번호로 접근
     @ResponseBody
     @DeleteMapping("/sum-note/{id}")
     @ApiOperation(value = "요약 노트 삭제")
     public void deleteSumNote(@PathVariable Long id) {
 
-        summaryService.deleteNote(id);
         // 문서 아이디에 해당하는 요약 문서 하나 가져와서 삭제
+        summaryService.deleteNote(id);
 
     }
 
