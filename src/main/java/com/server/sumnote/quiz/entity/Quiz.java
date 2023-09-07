@@ -1,10 +1,11 @@
 package com.server.sumnote.quiz.entity;
 
-import com.server.sumnote.summary.entity.Summary;
-import com.server.sumnote.user.entity.User;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "QUIZ")
+@EntityListeners(AuditingEntityListener.class)
 public class Quiz {
 
     @Id
@@ -19,10 +21,11 @@ public class Quiz {
     @Column(name = "quiz_id")
     private Long id;
 
-    private String title;
+    private String quiz;
 
-    private String answer;
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
+    private List<Selection> selections = new ArrayList<>();
 
-    private String content;
+    private String commentary;
 
 }

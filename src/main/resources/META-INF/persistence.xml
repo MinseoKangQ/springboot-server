@@ -8,6 +8,7 @@
         <class>com.server.sumnote.user.entity.User</class>
         <class>com.server.sumnote.summary.entity.Summary</class>
         <class>com.server.sumnote.quiz.entity.Quiz</class>
+        <class>com.server.sumnote.quiz.entity.Selection</class>
         <properties>
             <!-- 필수 속성 -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
