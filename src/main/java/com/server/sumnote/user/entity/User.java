@@ -1,5 +1,6 @@
 package com.server.sumnote.user.entity;
 
+import com.server.sumnote.quiz.entity.Quiz;
 import com.server.sumnote.summary.entity.Summary;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +26,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Summary> summaries = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Quiz> quizzes = new ArrayList<>();
 
     @Override
     public String toString() {

@@ -23,15 +23,15 @@ public class Summary {
     @Column(name = "sum_id")
     private Long id;
 
+    // FK
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private String title;
 
     @Column(columnDefinition = "TEXT")
     private String content;
-
-    // FK -> 주인
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
