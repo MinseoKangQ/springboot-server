@@ -35,6 +35,11 @@ public class SummaryService {
         return summaryRepository.findSummariesByUser(userRepository.findByEmail(email));
     }
 
+    public void updateNote(Long id, String title) {
+        Summary gotSummary = summaryRepository.findSummaryById(id);
+        gotSummary.setTitle(title);
+        summaryRepository.save(gotSummary);
+    }
     public void deleteNote(Long id) {
         summaryRepository.deleteById(id);
     }

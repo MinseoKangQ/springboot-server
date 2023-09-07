@@ -26,7 +26,7 @@ public class SumController {
 
     private final SummaryService summaryService;
 
-    @ResponseBody // 이 메소드가 응답을 직접 처리하도록 알림
+    @ResponseBody
     @PostMapping("/create-sum-note")
     @ApiOperation(value = "요약 노트 만들기")
     public SumRes createSumNote(@RequestBody SumReq createSumRequest) {
@@ -41,55 +41,41 @@ public class SumController {
     }
 
 
-    @ResponseBody // 이 메소드가 응답을 직접 처리하도록 알림
+    @ResponseBody
     @GetMapping("/sum-notes")
     @ApiOperation(value = "유저의 모든 요약 노트 보여주기")
     public List<AllSumRes> getAllSumNotes(@RequestBody User user) {
 
-        // 유저의 아이디에 해당하는 요약 문서들 가져오기
         ArrayList<Summary> notes = summaryService.getAllSumNotes(user.getEmail());
 
-        // Summary 객체를 AllSumRes 객체로 변환
         List<AllSumRes> result = new ArrayList<>();
         for (Summary note : notes) {
             AllSumRes allSumRes = new AllSumRes(note.getTitle(), note.getCreated_at());
             result.add(allSumRes);
         }
-
-        // 배열 형태로 보내기, [ {"title" : ~~ , "created_at" : ~~ }, ]
         return result;
-
     }
 
-    // 터치한 문서의 번호로 접근
-    @ResponseBody // 이 메소드가 응답을 직접 처리하도록 알림
+    @ResponseBody
     @GetMapping("/sum-note-detail/{id}")
     @ApiOperation(value = "요약 노트 조회")
-    public SumRes getSumNote(@PathVariable("id") Long id) {
-
+    public SumRes getSumNote(@PathVariable Long id) {
         Summary gotSummary = summaryService.getSumNote(id);
         return new SumRes(gotSummary.getTitle(), gotSummary.getContent());
-
     }
 
-    // 여기 만들기
-    // 터치한 문서의 번호로 접근
     @ResponseBody
-    @PutMapping("/sum-note/{id}")
+    @PutMapping("/sum-note/{id}/{title}")
     @ApiOperation(value = "요약 노트 제목 수정")
-    public void updateSumNote(@PathVariable Long id) {
-
+    public void updateSumNote(@PathVariable Long id, @PathVariable String title) {
+        summaryService.updateNote(id, title);
     }
 
-    // 터치한 문서의 번호로 접근
     @ResponseBody
     @DeleteMapping("/sum-note/{id}")
     @ApiOperation(value = "요약 노트 삭제")
     public void deleteSumNote(@PathVariable Long id) {
-
-        // 문서 아이디에 해당하는 요약 문서 하나 가져와서 삭제
         summaryService.deleteNote(id);
-
     }
 
 }
