@@ -44,15 +44,15 @@ public class SumController {
     @ResponseBody
     @GetMapping("/sum-notes")
     @ApiOperation(value = "유저의 모든 요약 노트 보여주기")
-    public List<AllSumRes> getAllSumNotes(@RequestBody User user) {
+    public ArrayList<AllSumRes> getAllSumNotes(@RequestBody User user) {
 
+        ArrayList<AllSumRes> result = new ArrayList<>();
         ArrayList<Summary> notes = summaryService.getAllSumNotes(user.getEmail());
 
-        List<AllSumRes> result = new ArrayList<>();
         for (Summary note : notes) {
-            AllSumRes allSumRes = new AllSumRes(note.getTitle(), note.getCreated_at());
-            result.add(allSumRes);
+            result.add(new AllSumRes(note.getTitle(), note.getCreated_at()));
         }
+
         return result;
     }
 

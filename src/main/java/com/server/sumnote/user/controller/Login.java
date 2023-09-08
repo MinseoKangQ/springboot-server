@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,20 +23,22 @@ public class Login {
     private final UserService userService;
 
     @ResponseBody
-    @PostMapping(value="android")
+    @PostMapping("/android")
     @ApiOperation(value = "카카오 - 유저 생성")
     public String androidResponse(@RequestBody User user) {
 
         User usingUser = userService.checkAndCreateUser(user.getEmail(), user.getName());
-        return "success";
+        System.out.println(usingUser.getEmail());
+        System.out.println(usingUser.getName());
+        return "스프링부트에서 유저 생성 성공";
     }
 
     @ResponseBody
-    @PostMapping(value="delete-request-android")
+    @DeleteMapping("/delete")
     @ApiOperation(value = "카카오 - 유저 삭제")
     public String androidDeleteResponse(@RequestBody User user) {
         userService.deleteUser(user.getEmail());
-        return "deleted";
+        return "스프링부트에서 유저 삭제 성공";
     }
 
 }
