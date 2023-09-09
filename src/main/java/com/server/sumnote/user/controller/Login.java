@@ -23,7 +23,7 @@ public class Login {
     private final UserService userService;
 
     @ResponseBody
-    @PostMapping("/android")
+    @PostMapping("/login")
     @ApiOperation(value = "카카오 - 유저 생성")
     public String androidResponse(@RequestBody User user) {
 
