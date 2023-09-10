@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,12 +46,20 @@ public class SumController {
         List<CustomSumNoteResponse.CustomSumNote> customNotes = new ArrayList<>();
         ArrayList<Summary> notes = summaryService.getAllSumNotes(email);
 
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy.M.d a hh:mm");
+
         for (Summary note : notes) {
+            String created_at = LocalDateTime.parse(note.getCreated_at().toString(), inputFormatter)
+                    .format(outputFormatter);
+
+            created_at = created_at.replace("오후", "pm").replace("오전", "am");
+
             customNotes.add(new CustomSumNoteResponse.CustomSumNote(
                     note.getId(),
                     note.getTitle(),
                     note.getContent(),
-                    note.getCreated_at()
+                    created_at
             ));
         }
 

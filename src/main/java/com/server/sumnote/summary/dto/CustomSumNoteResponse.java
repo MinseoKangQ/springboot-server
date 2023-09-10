@@ -21,7 +21,7 @@ public class CustomSumNoteResponse {
         private Long id;
         private String title;
         private String content;
-        private LocalDateTime created_at;
+        private String created_at;
     }
 
 }
