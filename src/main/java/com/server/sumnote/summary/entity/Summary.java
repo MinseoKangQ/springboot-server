@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -41,4 +42,28 @@ public class Summary {
     @Column(nullable = false)
     private LocalDateTime last_modified_at;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Summary summary = (Summary) o;
+        return Objects.equals(id, summary.id) && Objects.equals(user, summary.user) && Objects.equals(title, summary.title) && Objects.equals(content, summary.content) && Objects.equals(created_at, summary.created_at) && Objects.equals(last_modified_at, summary.last_modified_at);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, title, content, created_at, last_modified_at);
+    }
+
+    @Override
+    public String toString() {
+        return "Summary{" +
+                "id=" + id +
+                ", user=" + user +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", created_at=" + created_at +
+                ", last_modified_at=" + last_modified_at +
+                '}';
+    }
 }

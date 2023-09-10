@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class AllSumRes {
+    private Long id;
     private String title;
     private LocalDateTime created_at;
 }

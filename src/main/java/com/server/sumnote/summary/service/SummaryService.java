@@ -19,9 +19,9 @@ public class SummaryService {
 
     public Summary createSumNote(String title, String content, User user) {
         Summary newSumNote = new Summary();
+        newSumNote.setUser(user);
         newSumNote.setTitle(title);
         newSumNote.setContent(content);
-        newSumNote.setUser(user);
         userRepository.save(user);
         summaryRepository.save(newSumNote);
         return newSumNote;

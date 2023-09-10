@@ -2,6 +2,7 @@ package com.server.sumnote.summary.controller;
 
 import com.server.sumnote.quiz.entity.Quiz;
 import com.server.sumnote.summary.dto.AllSumRes;
+import com.server.sumnote.summary.dto.CustomSumNoteResponse;
 import com.server.sumnote.summary.dto.SumReq;
 import com.server.sumnote.summary.dto.SumRes;
 import com.server.sumnote.summary.entity.Summary;
@@ -40,20 +41,23 @@ public class SumController {
 
     }
 
-
     @ResponseBody
     @GetMapping("/sum-notes")
     @ApiOperation(value = "유저의 모든 요약 노트 보여주기")
-    public ArrayList<AllSumRes> getAllSumNotes(@RequestBody User user) {
-
-        ArrayList<AllSumRes> result = new ArrayList<>();
-        ArrayList<Summary> notes = summaryService.getAllSumNotes(user.getEmail());
+    public CustomSumNoteResponse getAllSumNotes(@RequestParam String email, @RequestParam String name) {
+        List<CustomSumNoteResponse.CustomSumNote> customNotes = new ArrayList<>();
+        ArrayList<Summary> notes = summaryService.getAllSumNotes(email);
 
         for (Summary note : notes) {
-            result.add(new AllSumRes(note.getTitle(), note.getCreated_at()));
+            customNotes.add(new CustomSumNoteResponse.CustomSumNote(
+                    note.getId(),
+                    note.getTitle(),
+                    note.getContent(),
+                    note.getCreated_at()
+            ));
         }
 
-        return result;
+        return new CustomSumNoteResponse(customNotes);
     }
 
     @ResponseBody

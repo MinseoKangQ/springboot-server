@@ -1,8 +1,8 @@
 package com.server.sumnote.quiz.controller;
 
 import com.server.sumnote.quiz.dto.QuizReq;
-import com.server.sumnote.quiz.dto.QuizRes;
 import com.server.sumnote.quiz.entity.Quiz;
+import com.server.sumnote.quiz.entity.Selection;
 import com.server.sumnote.quiz.service.QuizService;
 import com.server.sumnote.user.entity.User;
 import io.swagger.annotations.Api;
@@ -10,15 +10,12 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
-
-
 @Slf4j
-@RestController
-@RequestMapping
+@Controller
 @RequiredArgsConstructor
 @Component("quizController")
 @Api(tags = {"Quiz API"})
@@ -29,7 +26,7 @@ public class QuizController {
     @ResponseBody
     @PostMapping("/create-quiz")
     @ApiOperation(value = "퀴즈 만들기")
-    public QuizRes createQuiz(@RequestBody QuizReq createQuizRequest) {
+    public List<Selection> createQuiz(@RequestBody QuizReq req) {
 
         return null;
     }
