@@ -1,13 +1,8 @@
 package com.server.sumnote.summary.controller;
 
-import com.server.sumnote.quiz.entity.Quiz;
-import com.server.sumnote.summary.dto.AllSumRes;
-import com.server.sumnote.summary.dto.CustomSumNoteResponse;
-import com.server.sumnote.summary.dto.SumReq;
-import com.server.sumnote.summary.dto.SumRes;
+import com.server.sumnote.summary.dto.*;
 import com.server.sumnote.summary.entity.Summary;
 import com.server.sumnote.summary.service.SummaryService;
-import com.server.sumnote.user.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -69,10 +64,12 @@ public class SumController {
     }
 
     @ResponseBody
-    @PutMapping("/sum-note/{id}/{title}")
+    @PutMapping("/sum-note/{id}")
     @ApiOperation(value = "요약 노트 제목 수정")
-    public void updateSumNote(@PathVariable Long id, @PathVariable String title) {
-        summaryService.updateNote(id, title);
+    public UpdateTitleRes updateSumNote(@PathVariable Long id, @RequestBody UpdateTitleReq updateTitleReq) {
+        summaryService.updateNote(id, updateTitleReq.getTitle());
+        Summary gotUpdatedSummary = summaryService.getSumNote(id);
+        return new UpdateTitleRes(gotUpdatedSummary.getTitle(), gotUpdatedSummary.getContent(), gotUpdatedSummary.getLast_modified_at());
     }
 
     @ResponseBody

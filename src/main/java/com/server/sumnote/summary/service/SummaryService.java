@@ -5,7 +5,6 @@ import com.server.sumnote.summary.repository.SummaryRepository;
 import com.server.sumnote.user.entity.User;
 import com.server.sumnote.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,11 +34,12 @@ public class SummaryService {
         return summaryRepository.findSummariesByUser(userRepository.findByEmail(email));
     }
 
-    public void updateNote(Long id, String title) {
+    public void updateNote(Long id, String newTitle) {
         Summary gotSummary = summaryRepository.findSummaryById(id);
-        gotSummary.setTitle(title);
+        gotSummary.setTitle(newTitle);
         summaryRepository.save(gotSummary);
     }
+
     public void deleteNote(Long id) {
         summaryRepository.deleteById(id);
     }
