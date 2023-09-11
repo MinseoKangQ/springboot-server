@@ -1,5 +1,6 @@
 package com.server.sumnote.summary.entity;
 
+import com.server.sumnote.quiz.entity.Quiz;
 import com.server.sumnote.user.entity.User;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -28,6 +29,9 @@ public class Summary {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToOne(mappedBy = "summary", cascade = CascadeType.ALL)
+    private Quiz quiz;
 
     private String title;
 
