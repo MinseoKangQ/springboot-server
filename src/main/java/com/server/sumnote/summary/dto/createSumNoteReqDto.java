@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SumReq {
+public class createSumNoteReqDto {
     private User user;
     private Summary summary;
 }

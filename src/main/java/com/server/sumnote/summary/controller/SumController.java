@@ -3,6 +3,7 @@ package com.server.sumnote.summary.controller;
 import com.server.sumnote.summary.dto.*;
 import com.server.sumnote.summary.entity.Summary;
 import com.server.sumnote.summary.service.SummaryService;
+import com.server.sumnote.util.ChangeDateFormat;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -28,15 +29,12 @@ public class SumController {
     @ResponseBody
     @PostMapping("/create-sum-note")
     @ApiOperation(value = "요약 노트 만들기")
-    public SumRes createSumNote(@RequestBody SumReq createSumRequest) {
-
+    public createSumNoteResDto createSumNote(@RequestBody createSumNoteReqDto req) {
         Summary createdSummary = summaryService.createSumNote(
-                createSumRequest.getSummary().getTitle(),
-                createSumRequest.getSummary().getContent(),
-                createSumRequest.getUser());
-
-        return new SumRes(createdSummary.getTitle(), createdSummary.getContent());
-
+                req.getSummary().getTitle(),
+                req.getSummary().getContent(),
+                req.getUser());
+        return new createSumNoteResDto(createdSummary.getTitle(), createdSummary.getContent());
     }
 
     @ResponseBody
@@ -45,16 +43,8 @@ public class SumController {
     public CustomSumNoteResponse getAllSumNotes(@RequestParam String email, @RequestParam String name) {
         List<CustomSumNoteResponse.CustomSumNote> customNotes = new ArrayList<>();
         ArrayList<Summary> notes = summaryService.getAllSumNotes(email);
-
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy.M.d a hh:mm");
-
         for (Summary note : notes) {
-            String created_at = LocalDateTime.parse(note.getCreated_at().toString(), inputFormatter)
-                    .format(outputFormatter);
-
-            created_at = created_at.replace("오후", "pm").replace("오전", "am");
-
+            String created_at = ChangeDateFormat.doChange(note.getCreated_at().toString());
             customNotes.add(new CustomSumNoteResponse.CustomSumNote(
                     note.getId(),
                     note.getTitle(),
@@ -62,23 +52,22 @@ public class SumController {
                     created_at
             ));
         }
-
         return new CustomSumNoteResponse(customNotes);
     }
 
     @ResponseBody
     @GetMapping("/sum-note-detail/{id}")
     @ApiOperation(value = "요약 노트 조회")
-    public SumRes getSumNote(@PathVariable Long id) {
+    public createSumNoteResDto getSumNote(@PathVariable Long id) {
         Summary gotSummary = summaryService.getSumNote(id);
-        return new SumRes(gotSummary.getTitle(), gotSummary.getContent());
+        return new createSumNoteResDto(gotSummary.getTitle(), gotSummary.getContent());
     }
 
     @ResponseBody
     @PutMapping("/sum-note/{id}")
     @ApiOperation(value = "요약 노트 제목 수정")
     public UpdateTitleRes updateSumNote(@PathVariable Long id, @RequestBody UpdateTitleReq updateTitleReq) {
-        summaryService.updateNote(id, updateTitleReq.getTitle());
+        summaryService.updateSumNote(id, updateTitleReq.getTitle());
         Summary gotUpdatedSummary = summaryService.getSumNote(id);
         return new UpdateTitleRes(gotUpdatedSummary.getTitle(), gotUpdatedSummary.getContent(), gotUpdatedSummary.getLast_modified_at());
     }
@@ -87,7 +76,7 @@ public class SumController {
     @DeleteMapping("/sum-note/{id}")
     @ApiOperation(value = "요약 노트 삭제")
     public void deleteSumNote(@PathVariable Long id) {
-        summaryService.deleteNote(id);
+        summaryService.deleteSumNote(id);
     }
 
 }

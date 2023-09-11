@@ -34,13 +34,13 @@ public class SummaryService {
         return summaryRepository.findSummariesByUser(userRepository.findByEmail(email));
     }
 
-    public void updateNote(Long id, String newTitle) {
+    public void updateSumNote(Long id, String newTitle) {
         Summary gotSummary = summaryRepository.findSummaryById(id);
         gotSummary.setTitle(newTitle);
         summaryRepository.save(gotSummary);
     }
 
-    public void deleteNote(Long id) {
+    public void deleteSumNote(Long id) {
         summaryRepository.deleteById(id);
     }
 }

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class SumRes {
+public class createSumNoteResDto {
     private String title;
     private String content;
 }
