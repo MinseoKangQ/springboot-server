@@ -1,7 +1,6 @@
 package com.server.sumnote.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.server.sumnote.quiz.entity.Quiz;
 import com.server.sumnote.summary.entity.Summary;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,9 +28,9 @@ public class User {
     @JsonIgnoreProperties({"user"})
     private List<Summary> summaries = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
-    @JsonIgnoreProperties({"user"})
-    private List<Quiz> quizzes = new ArrayList<>();
+//    @OneToMany(mappedBy = "user")
+//    @JsonIgnoreProperties({"user"})
+//    private List<Quiz> quizzes = new ArrayList<>();
 
     @Override
     public String toString() {
