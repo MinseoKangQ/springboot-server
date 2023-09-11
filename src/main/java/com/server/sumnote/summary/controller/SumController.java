@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,47 +27,47 @@ public class SumController {
     @ResponseBody
     @PostMapping("/create-sum-note")
     @ApiOperation(value = "요약 노트 만들기")
-    public createSumNoteResDto createSumNote(@RequestBody createSumNoteReqDto req) {
+    public SumNoteResDto createSumNote(@RequestBody SumNoteReqDto req) {
         Summary createdSummary = summaryService.createSumNote(
                 req.getSummary().getTitle(),
                 req.getSummary().getContent(),
                 req.getUser());
-        return new createSumNoteResDto(createdSummary.getTitle(), createdSummary.getContent());
+        return new SumNoteResDto(createdSummary.getTitle(), createdSummary.getContent());
     }
 
     @ResponseBody
     @GetMapping("/sum-notes")
     @ApiOperation(value = "유저의 모든 요약 노트 보여주기")
-    public CustomSumNoteResponse getAllSumNotes(@RequestParam String email, @RequestParam String name) {
-        List<CustomSumNoteResponse.CustomSumNote> customNotes = new ArrayList<>();
+    public AllSumNoteResDto getAllSumNotes(@RequestParam String email, @RequestParam String name) {
+        List<AllSumNoteResDto.SumNoteResDto> customNotes = new ArrayList<>();
         ArrayList<Summary> notes = summaryService.getAllSumNotes(email);
         for (Summary note : notes) {
             String created_at = ChangeDateFormat.doChange(note.getCreated_at().toString());
-            customNotes.add(new CustomSumNoteResponse.CustomSumNote(
+            customNotes.add(new AllSumNoteResDto.SumNoteResDto(
                     note.getId(),
                     note.getTitle(),
                     note.getContent(),
                     created_at
             ));
         }
-        return new CustomSumNoteResponse(customNotes);
+        return new AllSumNoteResDto(customNotes);
     }
 
     @ResponseBody
     @GetMapping("/sum-note-detail/{id}")
     @ApiOperation(value = "요약 노트 조회")
-    public createSumNoteResDto getSumNote(@PathVariable Long id) {
+    public SumNoteResDto getSumNote(@PathVariable Long id) {
         Summary gotSummary = summaryService.getSumNote(id);
-        return new createSumNoteResDto(gotSummary.getTitle(), gotSummary.getContent());
+        return new SumNoteResDto(gotSummary.getTitle(), gotSummary.getContent());
     }
 
     @ResponseBody
     @PutMapping("/sum-note/{id}")
     @ApiOperation(value = "요약 노트 제목 수정")
-    public UpdateTitleRes updateSumNote(@PathVariable Long id, @RequestBody UpdateTitleReq updateTitleReq) {
-        summaryService.updateSumNote(id, updateTitleReq.getTitle());
-        Summary gotUpdatedSummary = summaryService.getSumNote(id);
-        return new UpdateTitleRes(gotUpdatedSummary.getTitle(), gotUpdatedSummary.getContent(), gotUpdatedSummary.getLast_modified_at());
+    public UpdateTitleResDto updateSumNote(@PathVariable Long id, @RequestBody UpdateTitleReqDto req) {
+        summaryService.updateSumNote(id, req.getTitle());
+        Summary gotUpdatedSumNote = summaryService.getSumNote(id);
+        return new UpdateTitleResDto(gotUpdatedSumNote.getTitle(), gotUpdatedSumNote.getContent(), gotUpdatedSumNote.getLast_modified_at());
     }
 
     @ResponseBody

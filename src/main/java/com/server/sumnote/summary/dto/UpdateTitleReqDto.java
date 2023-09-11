@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UpdateTitleReq {
+public class UpdateTitleReqDto {
     private String title;
 }

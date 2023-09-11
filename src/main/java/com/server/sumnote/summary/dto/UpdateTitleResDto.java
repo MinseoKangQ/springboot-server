@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
-public class createSumNoteResDto {
+public class UpdateTitleResDto {
     private String title;
     private String content;
+    private LocalDateTime last_modified_at;
 }
