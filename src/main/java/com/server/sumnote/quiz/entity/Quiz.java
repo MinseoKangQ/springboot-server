@@ -32,7 +32,7 @@ public class Quiz {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sum_id")
     private Summary summary;
 

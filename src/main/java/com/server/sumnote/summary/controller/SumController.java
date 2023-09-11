@@ -39,18 +39,18 @@ public class SumController {
     @GetMapping("/sum-notes")
     @ApiOperation(value = "유저의 모든 요약 노트 보여주기")
     public AllSumNoteResDto getAllSumNotes(@RequestParam String email, @RequestParam String name) {
-        List<AllSumNoteResDto.SumNoteResDto> customNotes = new ArrayList<>();
+        List<AllSumNoteResDto.SumNoteResDto> noteList = new ArrayList<>();
         ArrayList<Summary> notes = summaryService.getAllSumNotes(email);
         for (Summary note : notes) {
             String created_at = ChangeDateFormat.doChange(note.getCreated_at().toString());
-            customNotes.add(new AllSumNoteResDto.SumNoteResDto(
+            noteList.add(new AllSumNoteResDto.SumNoteResDto(
                     note.getId(),
                     note.getTitle(),
                     note.getContent(),
                     created_at
             ));
         }
-        return new AllSumNoteResDto(customNotes);
+        return new AllSumNoteResDto(noteList);
     }
 
     @ResponseBody

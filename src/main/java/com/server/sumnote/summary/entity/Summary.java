@@ -1,5 +1,6 @@
 package com.server.sumnote.summary.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.server.sumnote.quiz.entity.Quiz;
 import com.server.sumnote.user.entity.User;
 import lombok.*;
@@ -9,6 +10,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -30,8 +33,9 @@ public class Summary {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(mappedBy = "summary", cascade = CascadeType.ALL)
-    private Quiz quiz;
+    @OneToMany(mappedBy = "summary")
+    @JsonIgnoreProperties({"summary"})
+    private List<Quiz> quizzes = new ArrayList<>();
 
     private String title;
 
