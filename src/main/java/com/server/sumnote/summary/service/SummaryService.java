@@ -35,9 +35,16 @@ public class SummaryService {
         return summaryRepository.findSummariesByUser(userRepository.findByEmail(email));
     }
 
-    public void updateSumNote(Long id, String newTitle) {
+    public void updateSumNoteTitle(Long id, String newTitle) {
         Summary gotSummary = summaryRepository.findSummaryById(id);
-        gotSummary.setTitle(newTitle);
+        gotSummary.setSum_doc_title(newTitle);
+        summaryRepository.save(gotSummary);
+    }
+
+    public void updateSumNoteContent(Long id, String addTitle, String addContent) {
+        Summary gotSummary = summaryRepository.findSummaryById(id);
+        gotSummary.setTitle(gotSummary.getTitle().concat(addTitle));
+        gotSummary.setContent(gotSummary.getContent().concat(addContent));
         summaryRepository.save(gotSummary);
     }
 

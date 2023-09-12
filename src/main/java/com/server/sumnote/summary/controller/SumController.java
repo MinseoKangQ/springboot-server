@@ -62,10 +62,17 @@ public class SumController {
     @ResponseBody
     @PutMapping("/sum-note/title/{id}")
     @ApiOperation(value = "요약 노트 제목 수정")
-    public UpdateTitleResDto updateSumNote(@PathVariable Long id, @RequestBody UpdateTitleReqDto req) {
-        summaryService.updateSumNote(id, req.getTitle());
+    public void updateSumNoteTitle(@PathVariable Long id, @RequestBody UpdateTitleReqDto req) {
+        summaryService.updateSumNoteTitle(id, req.getSum_doc_title());
         Summary gotUpdatedSumNote = summaryService.getSumNote(id);
-        return new UpdateTitleResDto(gotUpdatedSumNote.getTitle(), gotUpdatedSumNote.getContent(), gotUpdatedSumNote.getLast_modified_at());
+    }
+
+    @ResponseBody
+    @PutMapping("/sum-note/content/{id}")
+    @ApiOperation(value = "요약 노트 페이지 추가")
+    public void updateSumNoteContent(@PathVariable Long id, @RequestBody UpdateContentReqDto req) {
+        summaryService.updateSumNoteContent(id, req.getAddTitle(), req.getAddContent());
+        Summary gotUpdatedSumNote = summaryService.getSumNote(id);
     }
 
     @ResponseBody

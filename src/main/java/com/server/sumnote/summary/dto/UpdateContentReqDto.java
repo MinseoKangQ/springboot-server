@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UpdateTitleReqDto {
-    private String sum_doc_title;
+public class UpdateContentReqDto {
+    private String addTitle;
+    private String addContent;
 }
