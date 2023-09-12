@@ -16,12 +16,13 @@ public class SummaryService {
     private final SummaryRepository summaryRepository;
     private final UserRepository userRepository;
 
-    public Summary createSumNote(String title, String content, User user) {
+    public Summary createSumNote(String email, String sum_doc_title, String title, String content) {
         Summary newSumNote = new Summary();
-        newSumNote.setUser(user);
+        newSumNote.setUser(userRepository.findByEmail(email));
+        newSumNote.setSum_doc_title(sum_doc_title);
         newSumNote.setTitle(title);
         newSumNote.setContent(content);
-        userRepository.save(user);
+        userRepository.save(userRepository.findByEmail(email));
         summaryRepository.save(newSumNote);
         return newSumNote;
     }

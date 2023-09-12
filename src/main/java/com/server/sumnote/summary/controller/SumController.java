@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,28 +24,27 @@ public class SumController {
     private final SummaryService summaryService;
 
     @ResponseBody
-    @PostMapping("/create-sum-note")
+    @PostMapping("/sum-note")
     @ApiOperation(value = "요약 노트 만들기")
-    public SumNoteResDto createSumNote(@RequestBody SumNoteReqDto req) {
+    public void createSumNote(@RequestBody SumNoteReqDto req) {
         Summary createdSummary = summaryService.createSumNote(
-                req.getSummary().getTitle(),
-                req.getSummary().getContent(),
-                req.getUser());
-        return new SumNoteResDto(createdSummary.getTitle(), createdSummary.getContent());
+                req.getEmail(),
+                req.getSum_doc_title(),
+                req.getTitle(),
+                req.getContent());
     }
 
     @ResponseBody
     @GetMapping("/sum-notes")
     @ApiOperation(value = "유저의 모든 요약 노트 보여주기")
-    public AllSumNoteResDto getAllSumNotes(@RequestParam String email, @RequestParam String name) {
+    public AllSumNoteResDto getAllSumNotes(@RequestParam String email) {
         List<AllSumNoteResDto.SumNoteResDto> noteList = new ArrayList<>();
         ArrayList<Summary> notes = summaryService.getAllSumNotes(email);
         for (Summary note : notes) {
             String created_at = ChangeDateFormat.doChange(note.getCreated_at().toString());
             noteList.add(new AllSumNoteResDto.SumNoteResDto(
                     note.getId(),
-                    note.getTitle(),
-                    note.getContent(),
+                    note.getSum_doc_title(),
                     created_at
             ));
         }
@@ -62,7 +60,7 @@ public class SumController {
     }
 
     @ResponseBody
-    @PutMapping("/sum-note/{id}")
+    @PutMapping("/sum-note/title/{id}")
     @ApiOperation(value = "요약 노트 제목 수정")
     public UpdateTitleResDto updateSumNote(@PathVariable Long id, @RequestBody UpdateTitleReqDto req) {
         summaryService.updateSumNote(id, req.getTitle());

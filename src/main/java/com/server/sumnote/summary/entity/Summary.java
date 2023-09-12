@@ -1,18 +1,15 @@
 package com.server.sumnote.summary.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.server.sumnote.quiz.entity.Quiz;
-import com.server.sumnote.user.entity.User;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
+import java.util.Objects;
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import com.server.sumnote.quiz.entity.Quiz;
+import com.server.sumnote.user.entity.User;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @Setter
@@ -26,29 +23,30 @@ public class Summary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sum_id")
-    private Long id;
+    private Long id; // 자동 생성되는 기본키
 
-    // FK
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private User user; // 유저 외래키
 
-    @OneToMany(mappedBy = "summary")
+    private String sum_doc_title; // 요약 노트 제목
+
+    @OneToOne(mappedBy = "summary")
     @JsonIgnoreProperties({"summary"})
-    private List<Quiz> quizzes = new ArrayList<>();
+    private Quiz quiz; // 요약노트에 해당하는 퀴즈
 
-    private String title;
+    private String title; // 요약노트 한 페이지의 제목
 
     @Column(columnDefinition = "TEXT")
-    private String content;
+    private String content; // 요약노트 한 페이지의 내용
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    private LocalDateTime created_at;
+    private LocalDateTime created_at; // 생성일
 
     @LastModifiedDate
     @Column(nullable = false)
-    private LocalDateTime last_modified_at;
+    private LocalDateTime last_modified_at; // 수정일
 
     @Override
     public boolean equals(Object o) {

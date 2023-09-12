@@ -1,13 +1,13 @@
 package com.server.sumnote.summary.dto;
 
-import com.server.sumnote.summary.entity.Summary;
-import com.server.sumnote.user.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class SumNoteReqDto {
-    private User user;
-    private Summary summary;
+    String email; // 이메일
+    String sum_doc_title; // 요약 노트 제목
+    String title; // 요약노트 한 페이지의 제목
+    String content; // 요약노트 한 페이지의 내용
 }

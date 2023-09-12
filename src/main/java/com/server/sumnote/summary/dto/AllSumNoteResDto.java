@@ -18,8 +18,7 @@ public class AllSumNoteResDto {
     @Setter
     public static class SumNoteResDto {
         private Long id;
-        private String title;
-        private String content;
+        private String sum_doc_title;
         private String created_at;
     }
 
