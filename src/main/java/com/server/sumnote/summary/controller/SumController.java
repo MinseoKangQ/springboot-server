@@ -52,11 +52,11 @@ public class SumController {
     }
 
     @ResponseBody
-    @GetMapping("/sum-note-detail/{id}")
+    @GetMapping("/sum-note/{id}")
     @ApiOperation(value = "요약 노트 조회")
     public SumNoteResDto getSumNote(@PathVariable Long id) {
         Summary gotSummary = summaryService.getSumNote(id);
-        return new SumNoteResDto(gotSummary.getTitle(), gotSummary.getContent());
+        return new SumNoteResDto(gotSummary.getSum_doc_title(), gotSummary.getTitle(), gotSummary.getContent());
     }
 
     @ResponseBody
