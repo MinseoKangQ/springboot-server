@@ -30,43 +30,36 @@ public class QuizController {
     private final QuizService quizService;
 
     @ResponseBody
-    @PostMapping("/create-quiz")
+    @PostMapping("/quiz")
     @ApiOperation(value = "퀴즈 만들기")
-    public QuizResDto createQuiz(@RequestBody QuizReqDto req) {
+    public void createQuiz(@RequestBody QuizReqDto req) {
         Quiz createdQuiz = quizService.createQuiz(
+                req.getEmail(),
+                req.getSum_id(),
                 req.getQuestion(),
                 req.getSelections(),
                 req.getAnswer(),
-                req.getCommentary(),
-                req.getEmail(),
-                req.getSum_id());
-
-        System.out.println("=== 생성된 퀴즈 ===");
-        System.out.println(createdQuiz);
-        System.out.println("=== 연관된 요약 노트 제목 ===");
-        System.out.println(createdQuiz.getSummary().getTitle());
-
-        return new QuizResDto(createdQuiz.getQuestion(), createdQuiz.getSelections(), createdQuiz.getAnswer(), createdQuiz.getCommentary());
+                req.getCommentary());
     }
 
-    @ResponseBody
-    @GetMapping("/quizzes")
-    @ApiOperation(value = "유저의 모든 퀴즈 보여주기")
-    public AllQuizzesResDto getAllQuizzes(@RequestParam String email) {
-        System.out.println("==== getAllQuizzes 들어옴 ===");
-        List<AllQuizzesResDto.QuizResDto> quizList = new ArrayList<>();
-        ArrayList<Quiz> docs = quizService.getAllQuizzes(email);
-        for (Quiz quiz: docs) {
-            String created_at = ChangeDateFormat.doChange(quiz.getCreated_at().toString());
-            quizList.add(new AllQuizzesResDto.QuizResDto(
-                    quiz.getQuestion(),
-                    quiz.getSelections(),
-                    quiz.getAnswer(),
-                    quiz.getCommentary(),
-                    created_at
-            ));
-        }
-        return new AllQuizzesResDto(quizList);
-    }
+//    @ResponseBody
+//    @GetMapping("/quizzes")
+//    @ApiOperation(value = "유저의 모든 퀴즈 보여주기")
+//    public AllQuizzesResDto getAllQuizzes(@RequestParam String email) {
+//        System.out.println("==== getAllQuizzes 들어옴 ===");
+//        List<AllQuizzesResDto.QuizResDto> quizList = new ArrayList<>();
+//        ArrayList<Quiz> docs = quizService.getAllQuizzes(email);
+//        for (Quiz quiz: docs) {
+//            String created_at = ChangeDateFormat.doChange(quiz.getCreated_at().toString());
+//            quizList.add(new AllQuizzesResDto.QuizResDto(
+//                    quiz.getQuestion(),
+//                    quiz.getSelections(),
+//                    quiz.getAnswer(),
+//                    quiz.getCommentary(),
+//                    created_at
+//            ));
+//        }
+//        return new AllQuizzesResDto(quizList);
+//    }
 
 }

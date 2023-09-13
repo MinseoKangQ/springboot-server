@@ -35,6 +35,8 @@ public class Quiz {
     @JoinColumn(name = "sum_id")
     private Summary summary; // 퀴즈에 해당하는 요약노트
 
+    private String quiz_doc_title; // 퀴즈 문서 제목
+
     private String question; // 퀴즈 내용
 
     private String selections; // 퀴즈 선택지들 (4지선다)

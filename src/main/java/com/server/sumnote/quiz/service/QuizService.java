@@ -19,18 +19,19 @@ public class QuizService {
     private final SummaryRepository summaryRepository;
     private final UserRepository userRepository;
 
-    public Quiz createQuiz(String question, String selections, Integer answer, String commentary, String email, Long sum_id) {
+    public Quiz createQuiz(String email, Long sum_id, String question, String selections, String answer, String commentary){
         Quiz newQuiz = new Quiz();
+        newQuiz.setUser(userRepository.findByEmail(email));
+        newQuiz.setSummary(summaryRepository.findSummaryById(sum_id));
+        newQuiz.setQuiz_doc_title(summaryRepository.findSummaryById(sum_id).getSum_doc_title() + "의 퀴즈");
         newQuiz.setQuestion(question);
         newQuiz.setSelections(selections);
         newQuiz.setAnswer(answer);
         newQuiz.setCommentary(commentary);
-        newQuiz.setSummary(summaryRepository.findSummaryById(sum_id));
-        newQuiz.setUser(userRepository.findByEmail(email));
-
         userRepository.save(userRepository.findByEmail(email));
         summaryRepository.save(summaryRepository.findSummaryById(sum_id));
         quizRepository.save(newQuiz);
+
         return newQuiz;
     }
 
