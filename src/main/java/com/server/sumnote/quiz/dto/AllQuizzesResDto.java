@@ -17,11 +17,8 @@ public class AllQuizzesResDto {
     @Getter
     @Setter
     public static class QuizResDto {
-        private String question;
-        private String selections;
-        private Integer answers;
-        private String commentary;
+        private Long id;
+        private String quiz_doc_title;
         private String created_at;
-        // 관련 Summary 도 보내줘야?
     }
 }

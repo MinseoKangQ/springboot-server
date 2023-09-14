@@ -6,6 +6,7 @@ import com.server.sumnote.quiz.dto.QuizReqDto;
 import com.server.sumnote.quiz.dto.QuizResDto;
 import com.server.sumnote.quiz.entity.Quiz;
 import com.server.sumnote.quiz.service.QuizService;
+import com.server.sumnote.summary.dto.AllSumNoteResDto;
 import com.server.sumnote.summary.entity.Summary;
 import com.server.sumnote.util.ChangeDateFormat;
 import io.swagger.annotations.Api;
@@ -42,24 +43,21 @@ public class QuizController {
                 req.getCommentary());
     }
 
-//    @ResponseBody
-//    @GetMapping("/quizzes")
-//    @ApiOperation(value = "유저의 모든 퀴즈 보여주기")
-//    public AllQuizzesResDto getAllQuizzes(@RequestParam String email) {
-//        System.out.println("==== getAllQuizzes 들어옴 ===");
-//        List<AllQuizzesResDto.QuizResDto> quizList = new ArrayList<>();
-//        ArrayList<Quiz> docs = quizService.getAllQuizzes(email);
-//        for (Quiz quiz: docs) {
-//            String created_at = ChangeDateFormat.doChange(quiz.getCreated_at().toString());
-//            quizList.add(new AllQuizzesResDto.QuizResDto(
-//                    quiz.getQuestion(),
-//                    quiz.getSelections(),
-//                    quiz.getAnswer(),
-//                    quiz.getCommentary(),
-//                    created_at
-//            ));
-//        }
-//        return new AllQuizzesResDto(quizList);
-//    }
+    @ResponseBody
+    @GetMapping("/quizzes")
+    @ApiOperation(value = "유저의 모든 퀴즈 보여주기")
+    public AllQuizzesResDto getAllQuizzes(@RequestParam String email) {
+        List<AllQuizzesResDto.QuizResDto> docList = new ArrayList<>();
+        ArrayList<Quiz> notes = quizService.getAllQuizzes(email);
+        for (Quiz quizzes : notes) {
+            String created_at = ChangeDateFormat.doChange(quizzes.getCreated_at().toString());
+            docList.add(new AllQuizzesResDto.QuizResDto(
+                    quizzes.getId(),
+                    quizzes.getQuiz_doc_title(),
+                    created_at
+            ));
+        }
+        return new AllQuizzesResDto(docList);
+    }
 
 }
