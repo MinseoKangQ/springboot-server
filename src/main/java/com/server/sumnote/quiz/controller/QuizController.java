@@ -7,6 +7,7 @@ import com.server.sumnote.quiz.dto.QuizResDto;
 import com.server.sumnote.quiz.entity.Quiz;
 import com.server.sumnote.quiz.service.QuizService;
 import com.server.sumnote.summary.dto.AllSumNoteResDto;
+import com.server.sumnote.summary.dto.SumNoteResDto;
 import com.server.sumnote.summary.entity.Summary;
 import com.server.sumnote.util.ChangeDateFormat;
 import io.swagger.annotations.Api;
@@ -60,4 +61,11 @@ public class QuizController {
         return new AllQuizzesResDto(docList);
     }
 
+    @ResponseBody
+    @GetMapping("/quiz/{id}")
+    @ApiOperation(value = "퀴즈 조회")
+    public QuizResDto getQuiz(@PathVariable Long id) {
+        Quiz gotQuiz = quizService.getQuiz(id);
+        return new QuizResDto(gotQuiz.getQuiz_doc_title(), gotQuiz.getQuestion(), gotQuiz.getSelections(), gotQuiz.getAnswer(), gotQuiz.getCommentary());
+    }
 }

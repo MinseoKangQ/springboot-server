@@ -9,8 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class QuizResDto {
+    private String quiz_doc_title;
     private String question;
     private String selections;
-    private Integer answer;
+    private String answer;
     private String commentary;
 }
