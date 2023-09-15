@@ -27,11 +27,11 @@ public class Quiz {
     @Column(name = "quiz_id")
     private Long id; // 자동 생성되는 기본키
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user; // 유저 외래키
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "sum_id")
     private Summary summary; // 퀴즈에 해당하는 요약노트
 

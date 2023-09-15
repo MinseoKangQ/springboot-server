@@ -25,7 +25,7 @@ public class Summary {
     @Column(name = "sum_id")
     private Long id; // 자동 생성되는 기본키
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user; // 유저 외래키
 
