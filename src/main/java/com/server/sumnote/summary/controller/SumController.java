@@ -2,6 +2,7 @@ package com.server.sumnote.summary.controller;
 
 import com.server.sumnote.summary.dto.*;
 import com.server.sumnote.summary.entity.Summary;
+import com.server.sumnote.summary.repository.SummaryRepository;
 import com.server.sumnote.summary.service.SummaryService;
 import com.server.sumnote.util.ChangeDateFormat;
 import io.swagger.annotations.Api;
@@ -11,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 

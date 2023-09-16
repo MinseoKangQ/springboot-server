@@ -2,11 +2,10 @@ package com.server.sumnote.summary.service;
 
 import com.server.sumnote.summary.entity.Summary;
 import com.server.sumnote.summary.repository.SummaryRepository;
-import com.server.sumnote.user.entity.User;
 import com.server.sumnote.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 
 @Service
@@ -48,7 +47,8 @@ public class SummaryService {
         summaryRepository.save(gotSummary);
     }
 
+    @Transactional
     public void deleteSumNote(Long id) {
-        summaryRepository.deleteById(id);
+        summaryRepository.deleteSummaryById(id);
     }
 }

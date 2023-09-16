@@ -25,23 +25,15 @@ public class Login {
     @ResponseBody
     @PostMapping("/login")
     @ApiOperation(value = "카카오 - 유저 생성")
-    public String androidResponse(@RequestBody User user) {
-        System.out.println("=== androidResponse 요청 들어옴 ===");
+    public void androidResponse(@RequestBody User user) {
         User usingUser = userService.checkAndCreateUser(user.getEmail(), user.getName());
-        System.out.println(usingUser.getEmail());
-        System.out.println(usingUser.getName());
-        System.out.println("=== androidResponse 리턴 직전 ===");
-        return "스프링부트에서 유저 생성 성공";
     }
 
     @ResponseBody
     @DeleteMapping("/delete")
     @ApiOperation(value = "카카오 - 유저 삭제")
-    public String androidDeleteResponse(@RequestBody User user) {
-        System.out.println("=== androidDeleteResponse 요청 들어옴 ===");
+    public void androidDeleteResponse(@RequestBody User user) {
         userService.deleteUser(user.getEmail());
-        System.out.println("=== androidDeleteResponse 리턴 직전 ===");
-        return "스프링부트에서 유저 삭제 성공";
     }
 
 }

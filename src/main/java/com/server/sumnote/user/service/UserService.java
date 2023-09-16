@@ -4,7 +4,6 @@ import com.server.sumnote.user.entity.User;
 import com.server.sumnote.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 
 @Service

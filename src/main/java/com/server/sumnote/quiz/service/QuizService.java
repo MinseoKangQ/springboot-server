@@ -9,6 +9,7 @@ import com.server.sumnote.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 
 @Service
@@ -40,4 +41,10 @@ public class QuizService {
     public ArrayList<Quiz> getAllQuizzes(String email) {
         return quizRepository.findQuizzesByUser(userRepository.findByEmail(email));
     }
+
+    @Transactional
+    public void deleteQuizById(Long id) {
+        quizRepository.deleteQuizById(id);
+    }
+
 }

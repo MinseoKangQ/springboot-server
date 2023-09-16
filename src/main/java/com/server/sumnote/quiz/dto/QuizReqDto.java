@@ -1,7 +1,5 @@
 package com.server.sumnote.quiz.dto;
 
-import com.server.sumnote.summary.entity.Summary;
-import com.server.sumnote.user.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
