@@ -1,9 +1,7 @@
 package com.server.sumnote.quiz.controller;
 
 
-import com.server.sumnote.quiz.dto.AllQuizzesResDto;
-import com.server.sumnote.quiz.dto.QuizReqDto;
-import com.server.sumnote.quiz.dto.QuizResDto;
+import com.server.sumnote.quiz.dto.*;
 import com.server.sumnote.quiz.entity.Quiz;
 import com.server.sumnote.quiz.service.QuizService;
 import com.server.sumnote.util.ChangeDateFormat;
@@ -62,6 +60,22 @@ public class QuizController {
     public QuizResDto getQuiz(@PathVariable Long id) {
         Quiz gotQuiz = quizService.getQuiz(id);
         return new QuizResDto(gotQuiz.getQuiz_doc_title(), gotQuiz.getQuestion(), gotQuiz.getSelections(), gotQuiz.getAnswer(), gotQuiz.getCommentary());
+    }
+
+    @ResponseBody
+    @PutMapping("/quiz/title/{id}")
+    @ApiOperation(value = "퀴즈 제목 수정")
+    public void updateQuizTitle(@PathVariable Long id, @RequestBody UpdateTitleReqDto req) {
+        quizService.updateQuizTitle(id, req.getQuiz_doc_title());
+        Quiz gotUpdatedQuiz = quizService.getQuiz(id);
+    }
+
+    @ResponseBody
+    @PutMapping("/quiz/content/{id}")
+    @ApiOperation(value = "퀴즈 페이지 추가")
+    public void updateQuizContent(@PathVariable Long id, @RequestBody UpdateContentReqDto req) {
+        quizService.updateQuizContent(id, req.getAddQuestion(), req.getAddSelections(), req.getAddAnswer(), req.getAddCommentary());
+        Quiz gotUpdatedQuiz = quizService.getQuiz(id);
     }
 
     @ResponseBody

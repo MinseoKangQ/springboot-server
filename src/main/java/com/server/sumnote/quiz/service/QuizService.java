@@ -42,9 +42,24 @@ public class QuizService {
         return quizRepository.findQuizzesByUser(userRepository.findByEmail(email));
     }
 
+    public void updateQuizTitle(Long id, String newTitle) {
+        Quiz gotQuiz = quizRepository.findQuizById(id);
+        gotQuiz.setQuiz_doc_title(newTitle);
+        quizRepository.save(gotQuiz);
+    }
+
+    public void updateQuizContent(Long id, String addQuestion, String addSelections, String addAnswer, String addCommentary) {
+        Quiz gotQuiz = quizRepository.findQuizById(id);
+        System.out.println(gotQuiz);
+        gotQuiz.setQuestion(gotQuiz.getQuestion().concat(addQuestion));
+        gotQuiz.setSelections(gotQuiz.getSelections().concat(addSelections));
+        gotQuiz.setAnswer(gotQuiz.getAnswer().concat(addAnswer));
+        gotQuiz.setCommentary(gotQuiz.getCommentary().concat(addCommentary));
+        quizRepository.save(gotQuiz);
+    }
+
     @Transactional
     public void deleteQuizById(Long id) {
         quizRepository.deleteQuizById(id);
     }
-
 }
