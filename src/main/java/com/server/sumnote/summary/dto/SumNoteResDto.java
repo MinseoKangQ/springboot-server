@@ -11,4 +11,5 @@ public class SumNoteResDto {
     private String sum_doc_title;
     private String title;
     private String content;
+    private Boolean is_quiz_exist;
 }

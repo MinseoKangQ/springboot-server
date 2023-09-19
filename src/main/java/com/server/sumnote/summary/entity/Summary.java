@@ -40,6 +40,8 @@ public class Summary {
     @Column(columnDefinition = "TEXT")
     private String content; // 요약노트 한 페이지의 내용
 
+    private Boolean is_quiz_exist = false; // 요약 노트에 해당하는 퀴즈가 존재하는지 여부
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime created_at; // 생성일

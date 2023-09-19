@@ -2,7 +2,6 @@ package com.server.sumnote.summary.controller;
 
 import com.server.sumnote.summary.dto.*;
 import com.server.sumnote.summary.entity.Summary;
-import com.server.sumnote.summary.repository.SummaryRepository;
 import com.server.sumnote.summary.service.SummaryService;
 import com.server.sumnote.util.ChangeDateFormat;
 import io.swagger.annotations.Api;
@@ -12,8 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +56,7 @@ public class SumController {
     @ApiOperation(value = "요약 노트 조회")
     public SumNoteResDto getSumNote(@PathVariable Long id) {
         Summary gotSummary = summaryService.getSumNote(id);
-        return new SumNoteResDto(gotSummary.getSum_doc_title(), gotSummary.getTitle(), gotSummary.getContent());
+        return new SumNoteResDto(gotSummary.getSum_doc_title(), gotSummary.getTitle(), gotSummary.getContent(), gotSummary.getIs_quiz_exist());
     }
 
     @ResponseBody
