@@ -59,13 +59,18 @@ public class QuizService {
     }
 
     public void updateQuizContent(Long id, String addQuestion, String addSelections, String addAnswer, String addCommentary) {
-        Quiz gotQuiz = quizRepository.findQuizById(id);
-        System.out.println(gotQuiz);
+
+        // 요약 노트의 id 를 받음
+        Summary gotSummary = summaryService.getSumNote(id); // 요약 노트를 가져옴
+        Long quizId = gotSummary.getQuiz().getId(); // 요약 노트에 해당하는 Id를 가져옴
+
+        Quiz gotQuiz = quizRepository.findQuizById(quizId);
         gotQuiz.setQuestion(gotQuiz.getQuestion().concat(addQuestion));
         gotQuiz.setSelections(gotQuiz.getSelections().concat(addSelections));
         gotQuiz.setAnswer(gotQuiz.getAnswer().concat(addAnswer));
         gotQuiz.setCommentary(gotQuiz.getCommentary().concat(addCommentary));
         quizRepository.save(gotQuiz);
+
     }
 
     @Transactional

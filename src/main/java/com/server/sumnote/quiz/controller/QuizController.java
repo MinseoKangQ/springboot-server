@@ -71,7 +71,7 @@ public class QuizController {
     }
 
     @ResponseBody
-    @PutMapping("/quiz/content/{id}")
+    @PutMapping("/quiz/content/{id}") // 퀴즈의 id가 아니라 요약 노트의 id를 전달받음
     @ApiOperation(value = "퀴즈 페이지 추가")
     public void updateQuizContent(@PathVariable Long id, @RequestBody UpdateContentReqDto req) {
         quizService.updateQuizContent(id, req.getAddQuestion(), req.getAddSelections(), req.getAddAnswer(), req.getAddCommentary());
