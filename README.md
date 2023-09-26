@@ -28,4 +28,4 @@ This is SpringBoot API part of the 'SumNote' project submitted to the Hansung Un
 
 <br>
 
-<p align="center"><img width="757" alt="summary-api" src="https://github.com/SumNote/springboot-server/assets/98332877/c1ec6ae7-a071-4427-a6b4-4d436823f69c"></p>
+<p align="center"><img width="704" alt="quiz-api" src="https://github.com/SumNote/springboot-server/assets/98332877/2c427adf-4f9b-40c0-9092-f490c2ebe97d"></p>
